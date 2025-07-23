@@ -49,7 +49,6 @@ def get_customer_info(email: str):
 
 class FieldUpdate(BaseModel):
     Name: Optional[str] = None
-    Email: Optional[str] = None
     Phone: Optional[str] = None
     Address: Optional[str] = None  # Add more fields as needed
     # Example:
@@ -102,4 +101,5 @@ def update_customer_by_email(email: str, fields: FieldUpdate) -> dict:
             "status": "error",
             "message": "A problem occurred while accessing the database. Please try again or escalate."
         }
+
 
