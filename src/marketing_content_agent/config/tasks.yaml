@@ -1,0 +1,60 @@
+find_competitors_task:
+  description: >
+    According to the user input '{message}'
+    Research and list the top 5 competitors in the specified industry as of {current_date}.
+    Include their company names, website URLs, and a one-line description of what they do.
+  expected_output: >
+    A structured JSON list of competitors:
+    - Competitor name
+    - Website URL
+    - Short description
+  agent: competitor_finder
+
+scrape_competitor_data_task:
+  description: >
+    Take the competitor list and visit each website to extract:
+    - Product pricing details
+    - Latest product launches
+    - Blog/news or press releases
+    Ensure data is detailed and as current as {current_date}.
+  expected_output: >
+    A structured JSON dataset with:
+    - Competitor name
+    - Pricing summary
+    - New products or services
+    - Marketing/news updates
+  agent: data_scraper
+  context: 
+    - find_competitors_task
+analyze_trends_task:
+  description: >
+    Analyze the scraped competitor data and give a detailed summary of:
+    - Pricing patterns & changes
+    - New product trends
+    - Key marketing focus areas (AI, eco-friendly, discounts, etc.)
+  expected_output: >
+    A detailed report of the top 5 competitor trends, pricing strategies, and new marketing moves.
+  agent: trend_analyzer
+  context:
+    - scrape_competitor_data_task
+generate_report_task:
+  description: >
+    Take the competitor profiles and trend analysis and generate a structured report with:
+    - Competitor profiles
+    - Pricing comparisons
+    - Product launch summaries
+    - Marketing trend highlights
+  expected_output: >
+    A Markdown/PDF-ready detailed competitor intelligence report with all findings neatly formatted.
+  agent: report_writer
+  context:
+    - analyze_trends_task
+recommend_actions_task:
+  description: >
+    Based on the competitor intelligence report,
+    Suggest 3–5 well detailed actionable business strategies that can help the client gain an edge over competitors.
+  expected_output: >
+    A list of actionable recommendations with reasoning behind each suggestion.
+  agent: action_recommender
+  context:
+    - generate_report_task
