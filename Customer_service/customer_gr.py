@@ -76,3 +76,5 @@ with gr.Blocks(theme=gr.themes.Soft(primary_hue="sky")) as chatbot_ui:
     )
 
 chatbot_ui.launch(inbrowser=True)
+
+
